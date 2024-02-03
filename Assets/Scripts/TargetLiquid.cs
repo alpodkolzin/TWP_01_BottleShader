@@ -1,29 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class Liquid : MonoBehaviour
+public class TargetLiquid : MonoBehaviour
 {
-    public enum UpdateMode { Normal, UnscaledTime }
+    public enum UpdateMode
+    {
+        Normal,
+        UnscaledTime
+    }
+
     public UpdateMode updateMode;
 
-    [SerializeField]
-    float MaxWobble = 0.03f;
-    [SerializeField]
-    float WobbleSpeedMove = 1f;
-    [SerializeField]
-    float fillAmount = 0.5f;
-    [SerializeField]
-    float Recovery = 1f;
-    [SerializeField]
-    float Thickness = 1f;
-    [Range(0, 1)]
-    public float CompensateShapeAmount;
-    [SerializeField]
-    Mesh mesh;
-    [SerializeField]
-    Renderer rend;
+    [SerializeField] float MaxWobble = 0.03f;
+    [SerializeField] float WobbleSpeedMove = 1f;
+    [SerializeField] float fillAmount = 0.5f;
+    [SerializeField] float Recovery = 1f;
+    [SerializeField] float Thickness = 1f;
+    [Range(0, 1)] public float CompensateShapeAmount;
+    [SerializeField] Mesh mesh;
+    [SerializeField] Renderer rend;
     Vector3 pos;
     Vector3 lastPos;
     Vector3 velocity;
@@ -55,11 +50,13 @@ public class Liquid : MonoBehaviour
         {
             mesh = GetComponent<MeshFilter>().sharedMesh;
         }
+
         if (rend == null)
         {
             rend = GetComponent<Renderer>();
         }
     }
+
     void Update()
     {
         float deltaTime = 0;
@@ -88,7 +85,8 @@ public class Liquid : MonoBehaviour
 
             // make a sine wave of the decreasing wobble
             pulse = 2 * Mathf.PI * WobbleSpeedMove;
-            sinewave = Mathf.Lerp(sinewave, Mathf.Sin(pulse * time), deltaTime * Mathf.Clamp(velocity.magnitude + angularVelocity.magnitude, Thickness, 10));
+            sinewave = Mathf.Lerp(sinewave, Mathf.Sin(pulse * time),
+                deltaTime * Mathf.Clamp(velocity.magnitude + angularVelocity.magnitude, Thickness, 10));
 
             wobbleAmountX = wobbleAmountToAddX * sinewave;
             wobbleAmountZ = wobbleAmountToAddZ * sinewave;
@@ -99,10 +97,14 @@ public class Liquid : MonoBehaviour
             velocity = (lastPos - transform.position) / deltaTime;
 
             angularVelocity = GetAngularVelocity(lastRot, transform.rotation);
-
+            
             // add clamped velocity to wobble
-            wobbleAmountToAddX += Mathf.Clamp((velocity.x + (velocity.y * 0.2f) + angularVelocity.z + angularVelocity.y) * MaxWobble, -MaxWobble, MaxWobble);
-            wobbleAmountToAddZ += Mathf.Clamp((velocity.z + (velocity.y * 0.2f) + angularVelocity.x + angularVelocity.y) * MaxWobble, -MaxWobble, MaxWobble);
+            wobbleAmountToAddX +=
+                Mathf.Clamp((velocity.x + (velocity.y * 0.2f) + angularVelocity.z + angularVelocity.y) * MaxWobble,
+                    -MaxWobble, MaxWobble);
+            wobbleAmountToAddZ +=
+                Mathf.Clamp((velocity.z + (velocity.y * 0.2f) + angularVelocity.x + angularVelocity.y) * MaxWobble,
+                    -MaxWobble, MaxWobble);
         }
 
         // send it to the shader
@@ -139,6 +141,7 @@ public class Liquid : MonoBehaviour
         {
             pos = worldPos - transform.position - new Vector3(0, fillAmount, 0);
         }
+
         rend.sharedMaterial.SetVector("_FillAmount", pos);
     }
 
@@ -163,12 +166,14 @@ public class Liquid : MonoBehaviour
             var angle = Mathf.Acos(q.w);
             gain = 2.0f * angle / (Mathf.Sin(angle) * Time.deltaTime);
         }
+
         Vector3 angularVelocity = new Vector3(q.x * gain, q.y * gain, q.z * gain);
 
         if (float.IsNaN(angularVelocity.z))
         {
             angularVelocity = Vector3.zero;
         }
+
         return angularVelocity;
     }
 
@@ -189,6 +194,7 @@ public class Liquid : MonoBehaviour
                 lowestVert = position;
             }
         }
+
         return lowestVert.y;
     }
 }

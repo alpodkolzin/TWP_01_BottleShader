@@ -3,7 +3,6 @@ Shader "Unlit/FakeLiquid"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _FillAmount ("FillAmount", Range(-1,1)) = 1
     }
     SubShader
     {
@@ -33,7 +32,7 @@ Shader "Unlit/FakeLiquid"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float _FillAmount;
+            float3 _FillAmount;
 
             v2f vert (appdata v)
             {
@@ -43,9 +42,9 @@ Shader "Unlit/FakeLiquid"
                 // Important note
                 // we need to transalte coordinates from local space to world space
                 // but we don't need to apply world transformation, so we not using 'w'
-                // UPD: this trick needs an actual low point to work properly when the pivot is off center
                 float3 worldPos = mul(unity_ObjectToWorld, float4(v.vertex.xyz, 0));
-                o.fillPosition =  worldPos - _FillAmount;
+
+                o.fillPosition =  _FillAmount - worldPos;
 
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
@@ -53,9 +52,8 @@ Shader "Unlit/FakeLiquid"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // for now: because the origin point in my model is in the center
-                // we use negative value 
-                clip(- i.fillPosition.y);
+                // we are cutting the all fragments where distance from fill point is negative
+                clip(i.fillPosition.y);
                 return tex2D(_MainTex, i.uv);
             }
             ENDCG
