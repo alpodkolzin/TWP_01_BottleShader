@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1431540232179413581}
   - component: {fileID: 4927521047830424671}
+  - component: {fileID: 5292924774909493093}
   m_Layer: 0
   m_Name: Bottle
   m_TagString: Untagged
@@ -45,8 +46,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1201c530cdd4409a5ab39da238aa99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fillPercent: 0
+  m_fillPercent: 0.5
   m_meshRenderer: {fileID: 4097842209484404112}
+  m_collider: {fileID: 5292924774909493093}
+--- !u!65 &5292924774909493093
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431540232179413580}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 6.5, z: 2}
+  m_Center: {x: 0, y: -0.15, z: 0}
 --- !u!1001 &3395679376699418900
 PrefabInstance:
   m_ObjectHideFlags: 0

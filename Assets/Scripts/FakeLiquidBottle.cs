@@ -5,9 +5,9 @@ public class FakeLiquidBottle : MonoBehaviour
 {
     [SerializeField, Range(0,1)] private float m_fillPercent;
     [SerializeField] private MeshRenderer m_meshRenderer;
+    [SerializeField] private Collider m_collider;
 
     private static readonly int FillAmount = Shader.PropertyToID("_FillAmount");
-    private Vector3 m_fillPos;
 
     // For convenience let' leave the Update method
     private void Update()
@@ -17,7 +17,7 @@ public class FakeLiquidBottle : MonoBehaviour
 
     private void UpdateFillPosition()
     {
-        Bounds bounds = m_meshRenderer.bounds;
+        Bounds bounds = m_collider.bounds;
 
         // Get the fill position in the distance from center form
         float percentWorldPosY = Mathf.Lerp(bounds.min.y, bounds.max.y, m_fillPercent);
