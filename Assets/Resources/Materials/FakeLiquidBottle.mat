@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bottle
+  m_Name: FakeLiquidBottle
   m_Shader: {fileID: 4800000, guid: d1f1da2ac3f0a4343aeb0bfd6ac001f3, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
