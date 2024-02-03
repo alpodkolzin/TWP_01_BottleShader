@@ -43,7 +43,7 @@ Shader "Unlit/FakeLiquid"
                 // Important note
                 // we need to transalte coordinates from local space to world space
                 // but we don't need to apply world transformation, so we not using 'w'
-                // this is the main 'trick' of volume preservation illusion
+                // UPD: this trick needs an actual low point to work properly when the pivot is off center
                 float3 worldPos = mul(unity_ObjectToWorld, float4(v.vertex.xyz, 0));
                 o.fillPosition =  worldPos - _FillAmount;
 
