@@ -91,7 +91,7 @@ Shader "Unlit/FX/Liquid"
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 // get world position of the vertex - transform position
                 float3 worldPos = mul (unity_ObjectToWorld, v.vertex.xyz);  
-                float3 worldPosOffset = float3(worldPos.x, worldPos.y , worldPos.z) - _FillAmount;
+                float3 worldPosOffset = worldPos - _FillAmount;
                 // rotate it around XY
                 float3 worldPosX= Unity_RotateAboutAxis_Degrees(worldPosOffset, float3(0,0,1),90);
                 // rotate around XZ

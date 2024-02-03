@@ -354,7 +354,68 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 165115810391583443, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
       propertyPath: m_Name
+      value: TagetBottle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+--- !u!1001 &1718465827
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583442, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 165115810391583443, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_Name
       value: Bottle
       objectReference: {fileID: 0}
+    - target: {fileID: 1552350257258683925, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2922892687a404e669338009e03923b2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
