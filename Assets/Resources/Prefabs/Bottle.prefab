@@ -48,6 +48,7 @@ MonoBehaviour:
   m_fillPercent: 0.5
   m_meshRenderer: {fileID: 4097842209484404112}
   m_collider: {fileID: 5880251064571066609}
+  m_normal: {x: 0, y: 1, z: 0}
   MaxWobble: 1
   WobbleSpeedMove: 1
   Recovery: 1

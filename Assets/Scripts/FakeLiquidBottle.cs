@@ -6,6 +6,7 @@ public class FakeLiquidBottle : MonoBehaviour
     [SerializeField, Range(0,1)] private float m_fillPercent;
     [SerializeField] private MeshRenderer m_meshRenderer;
     [SerializeField] private Collider m_collider;
+    [Space] [SerializeField] private Vector3 m_normal;
 
     [Space]
     [SerializeField] float MaxWobble = 0.03f;
@@ -28,11 +29,21 @@ public class FakeLiquidBottle : MonoBehaviour
     private Vector3 lastPos;
     private Quaternion lastRot;
 
+    private Vector3 m_lastPosition;
+    private Vector3 m_lastRotation;
+
+    private Vector3 m_positionDiff;
+    private Vector3 m_rotationDiff;
+    private Vector3 m_flow;
+
+    private static readonly int Normal = Shader.PropertyToID("_Normal");
+    // private Vector3 m_velocity;
+
     // For convenience let' leave the Update method
     private void Update()
     {
         UpdateFillPosition();
-        UpdateWobble();
+        UpdateWobble2(m_meshRenderer.transform, Time.deltaTime);
     }
 
     private void UpdateWobble()
@@ -72,6 +83,26 @@ public class FakeLiquidBottle : MonoBehaviour
         // keep last position
         lastPos = m_meshRenderer.transform.position;
         lastRot = m_meshRenderer.transform.rotation;
+    }
+
+    private void UpdateWobble2(Transform transform, float deltaTime)
+    {
+        m_positionDiff = transform.position - m_lastPosition;
+        m_rotationDiff = transform.rotation.eulerAngles - m_lastRotation;
+
+        m_flow += m_positionDiff + m_rotationDiff;
+
+        var xLerp = Mathf.Lerp(m_flow.x, 0, 0.2f);
+        var yLerp = Mathf.Lerp(m_flow.y, 0, 0.2f);
+        var zLerp = Mathf.Lerp(m_flow.z, 0, 0.2f);
+        m_flow = new Vector3(xLerp, yLerp, zLerp);
+
+        // Quaternion.Lerp()
+
+        // m_meshRenderer.material.SetColor("_Color", new Color(m_flow.x, m_flow.y, m_flow.z, 1));
+
+        // Debug.LogError(m_positionDiff.ToString());
+        m_lastPosition = transform.position;
     }
     
     //https://forum.unity.com/threads/manually-calculate-angular-velocity-of-gameobject.289462/#post-4302796
@@ -121,6 +152,7 @@ public class FakeLiquidBottle : MonoBehaviour
         MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
         materialPropertyBlock.SetVector(FillAmount, fillPos);
         m_meshRenderer.SetPropertyBlock(materialPropertyBlock);
+        m_meshRenderer.sharedMaterial.SetVector(Normal, m_normal);
     }
 
     private void OnDrawGizmos()

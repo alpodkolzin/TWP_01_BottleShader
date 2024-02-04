@@ -79,8 +79,8 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WobbleX: -0.0058340332
-    - _WobbleZ: -0.00056645134
+    - _WobbleX: -0.0021209028
+    - _WobbleZ: -0.00020592756
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

@@ -3,7 +3,6 @@ Shader "Unlit/FakeLiquid"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-
         [PerRendererData] _FillAmount("FillAmount", Vector) = (0,0,0,0) 
     }
     SubShader
@@ -34,6 +33,7 @@ Shader "Unlit/FakeLiquid"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float4 _Normal;
 
             float3 _FillAmount;
             float _WobbleX, _WobbleZ;
@@ -66,13 +66,9 @@ Shader "Unlit/FakeLiquid"
                 // but we don't need to apply world transformation, so we not using 'w'
                 float3 worldPos = mul(unity_ObjectToWorld, float4(v.vertex.xyz, 0));
 
-                // rotate it around XY and XZ
-                float3 worldPosX= Unity_RotateAboutAxis_Degrees(worldPos, float3(0,0,1),90);
-                float3 worldPosZ = Unity_RotateAboutAxis_Degrees(worldPos, float3(1,0,0),90);
-                // combine rotations with worldPos, based on sine wave from script
-                float3 worldPosAdjusted = worldPos + worldPosX  * _WobbleX + worldPosZ * _WobbleZ;
 
-                o.fillPosition = _FillAmount - worldPosAdjusted;
+
+                o.fillPosition = dot(_Normal, _FillAmount - worldPos);
 
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
