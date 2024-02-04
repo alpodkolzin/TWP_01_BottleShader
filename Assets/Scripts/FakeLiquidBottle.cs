@@ -88,12 +88,13 @@ public class FakeLiquidBottle : MonoBehaviour
     private void UpdateWobble2(Transform transform, float deltaTime)
     {
         m_positionDiff = transform.position - m_lastPosition;
-        m_rotationDiff = transform.rotation.eulerAngles - m_lastRotation;
+        // m_rotationDiff = transform.rotation.eulerAngles - m_lastRotation;
 
-        m_flow += m_positionDiff + m_rotationDiff;
+        // m_flow += m_positionDiff + m_rotationDiff;
+        m_flow += m_positionDiff;
 
         var xLerp = Mathf.Lerp(m_flow.x, 0, 0.2f);
-        var yLerp = Mathf.Lerp(m_flow.y, 0, 0.2f);
+        var yLerp = Mathf.Lerp(m_flow.y, 1, 0.2f);
         var zLerp = Mathf.Lerp(m_flow.z, 0, 0.2f);
         m_flow = new Vector3(xLerp, yLerp, zLerp);
 
@@ -152,7 +153,8 @@ public class FakeLiquidBottle : MonoBehaviour
         MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
         materialPropertyBlock.SetVector(FillAmount, fillPos);
         m_meshRenderer.SetPropertyBlock(materialPropertyBlock);
-        m_meshRenderer.sharedMaterial.SetVector(Normal, m_normal.normalized);
+        // Debug.LogError(m_flow.ToString());
+        m_meshRenderer.sharedMaterial.SetVector(Normal, m_flow);
     }
 
     private void OnDrawGizmos()
