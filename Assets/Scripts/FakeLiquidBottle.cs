@@ -26,7 +26,11 @@ public class FakeLiquidBottle : MonoBehaviour
         // Fill position is determined by the distance from the pivot point to the point of liquid level
         // which itself is distance from the bounds point to the point of liquid level (only Y coordinate)
         Vector3 fillPos = bounds.center - distanceFromBoundsCenter - m_meshRenderer.transform.position;
-        m_meshRenderer.sharedMaterial.SetVector(FillAmount, fillPos);
+
+        // m_meshRenderer.sharedMaterial.SetVector(FillAmount, fillPos);
+        MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
+        materialPropertyBlock.SetVector(FillAmount, fillPos);
+        m_meshRenderer.SetPropertyBlock(materialPropertyBlock);
     }
 
     private void OnDrawGizmos()

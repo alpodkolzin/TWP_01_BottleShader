@@ -3,6 +3,7 @@ Shader "Unlit/FakeLiquid"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        [PerRendererData] _FillAmount("FillAmount", Vector) = (0,0,0,0) 
     }
     SubShader
     {
