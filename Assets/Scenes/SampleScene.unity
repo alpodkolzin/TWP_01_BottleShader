@@ -645,13 +645,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5567331834578138332, guid: aec35a8fbd7a5452592eaafdde5f810f, type: 3}
+      propertyPath: MaxWobble
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149540799893739655, guid: aec35a8fbd7a5452592eaafdde5f810f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.04
+      objectReference: {fileID: 0}
     - target: {fileID: 7256139058739052920, guid: aec35a8fbd7a5452592eaafdde5f810f, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7256139058739052920, guid: aec35a8fbd7a5452592eaafdde5f810f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 7256139058739052920, guid: aec35a8fbd7a5452592eaafdde5f810f, type: 3}
       propertyPath: m_LocalPosition.y
