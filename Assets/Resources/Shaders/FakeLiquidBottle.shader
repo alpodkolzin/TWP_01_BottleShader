@@ -48,8 +48,8 @@ Shader "Unlit/FakeLiquid"
                 // but we don't need to apply world transformation, so we not using 'w'
                 float3 worldPos = mul(unity_ObjectToWorld, float4(v.vertex.xyz, 0));
 
-
-
+                // get the dot product to understand on which side of the 'wobble' plane vertex is
+                // we need to subtract the world pos to get the direction vector from vertex to _FillAmount
                 o.fillPosition = dot(_Normal, _FillAmount - worldPos);
 
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);

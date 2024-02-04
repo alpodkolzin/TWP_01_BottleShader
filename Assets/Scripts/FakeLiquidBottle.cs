@@ -152,7 +152,7 @@ public class FakeLiquidBottle : MonoBehaviour
         MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
         materialPropertyBlock.SetVector(FillAmount, fillPos);
         m_meshRenderer.SetPropertyBlock(materialPropertyBlock);
-        m_meshRenderer.sharedMaterial.SetVector(Normal, m_normal);
+        m_meshRenderer.sharedMaterial.SetVector(Normal, m_normal.normalized);
     }
 
     private void OnDrawGizmos()
