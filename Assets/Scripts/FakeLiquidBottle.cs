@@ -1,3 +1,4 @@
+using UnityEditor.Search;
 using UnityEngine;
 
 [ExecuteAlways]
@@ -37,6 +38,8 @@ public class FakeLiquidBottle : MonoBehaviour
     private Vector3 m_flow;
 
     private static readonly int Normal = Shader.PropertyToID("_Normal");
+
+    private float m_delay;
     // private Vector3 m_velocity;
 
     // For convenience let' leave the Update method
@@ -87,26 +90,50 @@ public class FakeLiquidBottle : MonoBehaviour
 
     private void UpdateWobble2(Transform transform, float deltaTime)
     {
+        // add values
         m_positionDiff = transform.position - m_lastPosition;
-        // m_rotationDiff = transform.rotation.eulerAngles - m_lastRotation;
-
-        // m_flow += m_positionDiff + m_rotationDiff;
+        m_delay += m_positionDiff.magnitude;
         m_flow += m_positionDiff;
 
+        // clamp
         var xLerp = Mathf.Lerp(m_flow.x, 0, 0.2f);
         var yLerp = Mathf.Lerp(m_flow.y, 1, 0.2f);
         var zLerp = Mathf.Lerp(m_flow.z, 0, 0.2f);
         m_flow = new Vector3(xLerp, yLerp, zLerp);
 
-        // Quaternion.Lerp()
+        // rotate
+        m_delay = Mathf.Lerp(m_delay, 0, .1f);
+        float angle = Mathf.Sin(Time.time * 5) * 10 * m_delay;
+        Debug.LogError(angle);
+        m_flow = Quaternion.AngleAxis(angle, Vector3.right) * m_flow;
 
-        // m_meshRenderer.material.SetColor("_Color", new Color(m_flow.x, m_flow.y, m_flow.z, 1));
-
-        // Debug.LogError(m_positionDiff.ToString());
         m_lastPosition = transform.position;
     }
     
     //https://forum.unity.com/threads/manually-calculate-angular-velocity-of-gameobject.289462/#post-4302796
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.grey;
+        Gizmos.DrawWireCube(m_meshRenderer.transform.TransformPoint(m_meshRenderer.localBounds.center), m_meshRenderer.localBounds.size);
+        Gizmos.DrawWireCube(m_meshRenderer.bounds.center, m_meshRenderer.bounds.size);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(m_meshRenderer.transform.position, 0.3f);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(m_meshRenderer.bounds.min, 0.3f);
+        Gizmos.DrawSphere(m_meshRenderer.bounds.max, 0.3f);
+        
+        Gizmos.color = Color.magenta;
+        // Gizmos.DrawSphere(m_meshRenderer.bounds.center, 0.3f);
+        
+        Gizmos.DrawLine(m_meshRenderer.bounds.center,m_meshRenderer.bounds.center + m_flow);
+        
+        Gizmos.color = Color.red;
+        
+        Gizmos.DrawLine(m_meshRenderer.bounds.center,m_meshRenderer.bounds.center + Vector3.Cross(m_flow, Vector3.up).normalized);
+    }
+
     Vector3 GetAngularVelocity(Quaternion foreLastFrameRotation, Quaternion lastFrameRotation)
     {
         var q = lastFrameRotation * Quaternion.Inverse(foreLastFrameRotation);
@@ -155,22 +182,5 @@ public class FakeLiquidBottle : MonoBehaviour
         m_meshRenderer.SetPropertyBlock(materialPropertyBlock);
         // Debug.LogError(m_flow.ToString());
         m_meshRenderer.sharedMaterial.SetVector(Normal, m_flow);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.grey;
-        Gizmos.DrawWireCube(m_meshRenderer.transform.TransformPoint(m_meshRenderer.localBounds.center), m_meshRenderer.localBounds.size);
-        Gizmos.DrawWireCube(m_meshRenderer.bounds.center, m_meshRenderer.bounds.size);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(m_meshRenderer.transform.position, 0.3f);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(m_meshRenderer.bounds.min, 0.3f);
-        Gizmos.DrawSphere(m_meshRenderer.bounds.max, 0.3f);
-        
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawSphere(m_meshRenderer.bounds.center, 0.3f);
     }
 }
