@@ -41,12 +41,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: af42da57005db4c2892a99302611882d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4bb26bdae7213450ea5c0c129b124cf9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTexture:
+        m_Texture: {fileID: 2800000, guid: 0bd1638803941404b9a4d3cc2fecbb23, type: 3}
+        m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -59,10 +63,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _Amplitude: 0.15
+    - _BottleThickness: 0.9
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DarkeningLevel: 0.664
-    - _DarkeningStrength: 2.26
+    - _DarkeningLevel: 3.09
+    - _DarkeningStrength: 3.52
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FillAmount: 1
@@ -79,6 +84,7 @@ Material:
     - _RimPower: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SplashStrength: 5
     - _SrcBlend: 1
     - _UVSec: 0
     - _WobbleX: -0.0021209028
@@ -89,6 +95,7 @@ Material:
     - _Color: {r: 0.24705872, g: 0.39215678, b: 0.1019607, a: 0.6745098}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FillAmount: {r: 0, g: -0.1500001, b: 0, a: 0}
+    - _FlowDirection: {r: 0, g: 1, b: 0, a: 0}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _LiquidColor: {r: 0.7019608, g: 0.030838395, b: 0.030838395, a: 1}
     - _Normal: {r: 0, g: 1, b: 0, a: 0}

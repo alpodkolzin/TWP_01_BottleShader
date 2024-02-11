@@ -18,7 +18,7 @@ public class FakeLiquidBottle : MonoBehaviour
     [SerializeField] private float WobbleIgnoreThreshold = 0.5f;
 
     private static readonly int FillAmount = Shader.PropertyToID("_FillAmount");
-    private static readonly int Normal = Shader.PropertyToID("_Normal");
+    private static readonly int Normal = Shader.PropertyToID("_FlowDirection");
 
     private Vector3 m_lastPosition;
     private Vector3 m_positionDiff;
