@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431540232179413580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -48,11 +48,12 @@ MonoBehaviour:
   m_fillPercent: 0.5
   m_meshRenderer: {fileID: 4097842209484404112}
   m_collider: {fileID: 5880251064571066609}
-  m_normal: {x: 0, y: 1, z: 0}
-  MaxWobble: 1
-  WobbleSpeedMove: 1
-  Recovery: 1
-  Thickness: 1
+  GravityVector: {x: 0, y: 1, z: 0}
+  FlowDumpingSpeed: 0.2
+  WobbleRecovery: 10
+  WobbleStrength: 5
+  WobbleDumpingSpeed: 0.1
+  WobbleIgnoreThreshold: 0.5
 --- !u!1001 &3395679376699418900
 PrefabInstance:
   m_ObjectHideFlags: 0
