@@ -7,6 +7,16 @@ public class FakeLiquidBottle : MonoBehaviour
     [SerializeField] private MeshRenderer m_meshRenderer;
     [SerializeField] private Collider m_collider;
 
+    [SerializeField] private Vector3 GravityVector = Vector3.up;
+    [Space, Header("Flow settings")]
+    [SerializeField] private float FlowDumpingSpeed = 0.2f;
+
+    [Space, Header("Wobble Settings")]
+    [SerializeField] private float WobbleRecovery = 10;
+    [SerializeField] private float WobbleStrength = 5;
+    [SerializeField] private float WobbleDumpingSpeed = .1f;
+    [SerializeField] private float WobbleIgnoreThreshold = 0.5f;
+
     private static readonly int FillAmount = Shader.PropertyToID("_FillAmount");
     private static readonly int Normal = Shader.PropertyToID("_Normal");
 
@@ -29,7 +39,7 @@ public class FakeLiquidBottle : MonoBehaviour
         m_wobbleDumpingValue += m_positionDiff.magnitude;
         m_flow += m_positionDiff;
 
-        m_wobbleDumpingValue = Mathf.Lerp(m_wobbleDumpingValue, 0, .1f);
+        m_wobbleDumpingValue = Mathf.Lerp(m_wobbleDumpingValue, 0, WobbleDumpingSpeed);
         m_flow = RotateFlowVector(m_flow, m_positionDiff.magnitude, m_wobbleDumpingValue);
 
         m_flow = ClampFlowVector(m_flow);
@@ -39,13 +49,13 @@ public class FakeLiquidBottle : MonoBehaviour
 
     private Vector3 RotateFlowVector(Vector3 flow, float positionDiffMagnitude, float wobbleDumpingValue)
     {
-        if (!(Mathf.Abs(positionDiffMagnitude) < 0.5f))
+        if (!(Mathf.Abs(positionDiffMagnitude) < WobbleIgnoreThreshold))
         {
             return flow;
         }
 
-        float angle = Mathf.Sin(Time.time * 10) * 10 * wobbleDumpingValue;
-        Vector3 rotationAxis = Vector3.Cross(flow.normalized, Vector3.up);
+        float angle = Mathf.Sin(Time.time * WobbleRecovery) * WobbleStrength * wobbleDumpingValue;
+        Vector3 rotationAxis = Vector3.Cross(flow.normalized, GravityVector);
 
         // prevent cross product flipping
         if (Vector3.Dot(rotationAxis, new Vector3(1, 0, 1)) < 0.0f)
@@ -58,9 +68,26 @@ public class FakeLiquidBottle : MonoBehaviour
 
     private Vector3 ClampFlowVector(Vector3 flow)
     {
-        Vector3 reducedFlow = Vector3.Slerp(flow, Vector3.up, 0.2f);
-        reducedFlow = Vector3.ClampMagnitude(reducedFlow, 2);
+        Vector3 reducedFlow = Vector3.Slerp(flow, GravityVector, FlowDumpingSpeed);
         return reducedFlow;
+    }
+
+    private void UpdateFlowVector()
+    {
+        Bounds bounds = m_collider.bounds;
+
+        // Get the fill position in the distance from center form
+        float percentWorldPosY = Mathf.Lerp(bounds.min.y, bounds.max.y, m_fillPercent);
+        Vector3 distanceFromBoundsCenter = new Vector3(0, bounds.center.y - percentWorldPosY, 0);
+
+        // Fill position is determined by the distance from the pivot point to the point of liquid level
+        // which itself is distance from the bounds point to the point of liquid level (only Y coordinate)
+        Vector3 fillPos = bounds.center - distanceFromBoundsCenter - m_meshRenderer.transform.position;
+
+        MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
+        materialPropertyBlock.SetVector(FillAmount, fillPos);
+        materialPropertyBlock.SetVector(Normal, m_flow);
+        m_meshRenderer.SetPropertyBlock(materialPropertyBlock);
     }
 
     private void OnDrawGizmos()
@@ -84,23 +111,5 @@ public class FakeLiquidBottle : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(boundsCenter, boundsCenter + Vector3.Cross(m_flow, Vector3.up).normalized);
-    }
-
-    private void UpdateFlowVector()
-    {
-        Bounds bounds = m_collider.bounds;
-
-        // Get the fill position in the distance from center form
-        float percentWorldPosY = Mathf.Lerp(bounds.min.y, bounds.max.y, m_fillPercent);
-        Vector3 distanceFromBoundsCenter = new Vector3(0, bounds.center.y - percentWorldPosY, 0);
-
-        // Fill position is determined by the distance from the pivot point to the point of liquid level
-        // which itself is distance from the bounds point to the point of liquid level (only Y coordinate)
-        Vector3 fillPos = bounds.center - distanceFromBoundsCenter - m_meshRenderer.transform.position;
-
-        MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
-        materialPropertyBlock.SetVector(FillAmount, fillPos);
-        materialPropertyBlock.SetVector(Normal, m_flow);
-        m_meshRenderer.SetPropertyBlock(materialPropertyBlock);
     }
 }

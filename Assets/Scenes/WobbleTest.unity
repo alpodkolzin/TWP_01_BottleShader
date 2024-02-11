@@ -380,7 +380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4927521047830424671, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
       propertyPath: m_fillPercent
-      value: 0.276
+      value: 0.618
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b0462e7abb8e4bbaaf2d8a0dba1f052, type: 3}
