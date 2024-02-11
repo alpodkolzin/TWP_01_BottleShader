@@ -81,7 +81,7 @@ Shader "Unlit/FakeLiquid"
                 //get the power of splash by dot of up vector and flow direction
                 float splashDistortion = 1 - dot(_FlowDirection, float3(0,1,0));
                 // adjusting power of splash and sampling from Perlin noise
-                i.fillPosition =  i.fillPosition - tex2D(_NoiseTexture, i.uv2) * splashDistortion * _SplashStrength;
+                i.fillPosition =  i.fillPosition - tex2D(_NoiseTexture, i.uv2)  * splashDistortion * _SplashStrength;
 
                 // we are cutting the all fragments where distance from fill point is negative
                 clip(i.fillPosition);

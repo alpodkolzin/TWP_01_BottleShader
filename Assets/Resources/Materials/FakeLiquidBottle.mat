@@ -50,7 +50,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NoiseTexture:
         m_Texture: {fileID: 2800000, guid: 0bd1638803941404b9a4d3cc2fecbb23, type: 3}
-        m_Scale: {x: 4, y: 4}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -84,7 +84,7 @@ Material:
     - _RimPower: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SplashStrength: 5
+    - _SplashStrength: 8
     - _SrcBlend: 1
     - _UVSec: 0
     - _WobbleX: -0.0021209028

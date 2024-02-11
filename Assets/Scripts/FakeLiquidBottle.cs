@@ -10,6 +10,7 @@ public class FakeLiquidBottle : MonoBehaviour
     [SerializeField] private Vector3 GravityVector = Vector3.up;
     [Space, Header("Flow settings")]
     [SerializeField] private float FlowDumpingSpeed = 0.2f;
+    [SerializeField] private float FlowMixFactor = 0.5f;
 
     [Space, Header("Wobble Settings")]
     [SerializeField] private float WobbleRecovery = 10;
@@ -37,7 +38,7 @@ public class FakeLiquidBottle : MonoBehaviour
     {
         m_positionDiff = transform.position - m_lastPosition;
         m_wobbleDumpingValue += m_positionDiff.magnitude;
-        m_flow += m_positionDiff;
+        m_flow = Vector3.Slerp(m_flow, m_flow + m_positionDiff, FlowMixFactor);
 
         m_wobbleDumpingValue = Mathf.Lerp(m_wobbleDumpingValue, 0, WobbleDumpingSpeed);
         m_flow = RotateFlowVector(m_flow, m_positionDiff.magnitude, m_wobbleDumpingValue);

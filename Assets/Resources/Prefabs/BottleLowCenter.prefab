@@ -49,6 +49,12 @@ MonoBehaviour:
   m_fillPercent: 0.5
   m_meshRenderer: {fileID: 8010855403621982257}
   m_collider: {fileID: 278887207458389015}
+  GravityVector: {x: 0, y: 1, z: 0}
+  FlowDumpingSpeed: 0.2
+  WobbleRecovery: 10
+  WobbleStrength: 5
+  WobbleDumpingSpeed: 0.1
+  WobbleIgnoreThreshold: 0.5
 --- !u!65 &278887207458389015
 BoxCollider:
   m_ObjectHideFlags: 0
