@@ -4,6 +4,7 @@ Shader "Unlit/FakeLiquid"
     {
         _MainTex ("Texture", 2D) = "white" {}
         [PerRendererData] _FillAmount("FillAmount", Vector) = (0,0,0,0) 
+        [PerRendererData] _Normal("Normal", Vector) = (0,1,0,0) 
     }
     SubShader
     {
@@ -33,10 +34,9 @@ Shader "Unlit/FakeLiquid"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float4 _Normal;
 
+            float4 _Normal;
             float3 _FillAmount;
-            float _WobbleX, _WobbleZ;
 
             v2f vert (appdata v)
             {
