@@ -153,9 +153,7 @@ Shader "Unlit/FakeLiquid"
                 float3 viewDirection = normalize(_WorldSpaceCameraPos - i.worldPos);
 
                 float fresnel = pow(1 - dot(i.normal, viewDirection), 5);
-                return  fresnel * _BottleColor ;
-                // return 0;
-
+                return _BottleColor + fresnel;
             }
             ENDCG
 
